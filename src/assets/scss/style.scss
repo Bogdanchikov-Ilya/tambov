@@ -1,0 +1,77 @@
+@import "./null";
+@import "./functions";
+
+
+
+*{
+  font-family: 'Montserrat', sans-serif;
+  color: #343845;
+}
+
+a{
+  color: #343845;
+}
+
+.container{
+  width: size(1662, 1905);
+  margin: auto;
+  height: 100%;
+  @media (max-width: 744px){
+    width: size(665, 744);
+  }
+  @media (max-width: 320px){
+    width: size(290, 320);
+  }
+}
+
+.btn{
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  border-radius: size(5, 1905);
+  background: #EE5173;
+  display: block;
+  font-weight: 600;
+  line-height: size(16, 1905);
+  text-transform: uppercase;
+  font-size: size(13, 1905);
+}
+
+.form-title{
+  margin-bottom: size(25, 1905);
+}
+
+.form-item{
+  width: size(406, 1905);
+  display: flex;
+  flex-direction: column;
+  label{
+    margin-bottom: size(2, 1905);
+    font-style: normal;
+    font-weight: normal;
+    font-size: size(11, 1905);
+    line-height: size(24, 1905);
+    text-transform: uppercase;
+    color: #8891A2;
+    sup{
+      font-style: normal;
+      font-weight: normal;
+      font-size: size(16, 1905);
+      line-height: size(24, 1905);
+      text-transform: uppercase;
+      color: #EE5173;
+    }
+  }
+  input{
+    height: size(45, 1905);
+    background: white;
+    border-radius: size(5, 1905);
+    border: 1px solid #C6CEDB;
+  }
+  textarea{
+    background: white;
+    border-radius: size(5, 1905);
+    border: 1px solid #C6CEDB;
+    resize: none;
+  }
+}
