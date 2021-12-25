@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header-app />
+    <component :is="layout"/>
     <router-view/>
   </div>
 </template>
@@ -12,13 +12,16 @@
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  //text-align: center;
-  //color: #2c3e50;
 }
 </style>
 <script>
-import HeaderApp from "./components/header-app";
+import HeaderApp from "./layouts/home-layout";
 export default {
-  components: {HeaderApp}
+  components: {HeaderApp},
+  computed: {
+    layout(){
+      return this.$route.meta.layout || "home-layout"
+    }
+  }
 }
 </script>

@@ -1,15 +1,15 @@
 <template>
   <div class="home">
-    <popup/>
+    <popup ref="popup"/>
     <div class="container">
       <h1 class="title">Список заявок</h1>
       <ul class="applications">
-        <li class="applications-item" v-for="item in 3">
+        <li class="applications-item" v-for="item in 4">
           <span class="applications-item__title">Заголовок заявки</span>
           <p class="applications-item__text">Гомогенная среда экстремально отклоняет фонон. Турбулентность стабилизирует гидродинамический удар. Сверхновая тормозит фонон. Призма, как следует из совокупности экспериментальных наблюдений, притягивает лазер.</p>
         </li>
       </ul>
-      <button class="btn btn-create" @click="popup">Создать заявку</button>
+      <button class="btn btn-primary" @click="openPopup">Создать заявку</button>
     </div>
   </div>
 </template>
@@ -19,12 +19,12 @@ import popup from "../components/popup";
 export default {
   data () {
     return {
-      applications: null
+      applications: null,
     }
   },
   methods: {
-    popup() {
-
+    openPopup () {
+      this.$refs.popup.open()
     }
   },
   components: {
@@ -48,47 +48,111 @@ export default {
   font-style: normal;
   font-weight: 500;
   line-height: size(39, 1905);
-
 }
 
 .applications{
+  max-height: 62.90909090909091vh;
+  overflow-y: auto;
   margin-top: size(14, 1905);
   display: flex;
   flex-direction: column;
-  .applications-item{
-    border-radius: size(5, 1905);
-    margin-top: size(20, 1905);
-    background: white;
-    width: 100%;
-    padding: size(30, 1905);
-    .applications-item__title{
-      font-style: normal;
-      font-weight: 500;
-      font-size: size(24, 1905);
-      line-height: size(29, 1905);
-    }
-    .applications-item__text{
-      margin-top: size(17, 1905);
-      font-style: normal;
-      font-weight: 400;
-      font-size: size(15, 1905);
-      line-height: size(24, 1905);
-    }
+}
+
+.applications-item{
+
+
+  display: inline-block;
+  border-radius: size(5, 1905);
+  margin-top: size(20, 1905);
+  background: white;
+  width: 100%;
+  padding: size(30, 1905);
+  box-shadow: 0px 0px size(30, 1905) rgba(0, 0, 0, 0.1);
+  .applications-item__title{
+    font-style: normal;
+    font-weight: 500;
+    font-size: size(24, 1905);
+    line-height: size(29, 1905);
+  }
+  .applications-item__text{
+    margin-top: size(17, 1905);
+    font-style: normal;
+    font-weight: 400;
+    font-size: size(15, 1905);
+    line-height: size(24, 1905);
   }
 }
-.btn-create{
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-  border-radius: size(5, 1905);
-  background: #EE5173;
+
+button{
   display: block;
-  margin: auto;
-  font-weight: 600;
-  line-height: size(16, 1905);
-  margin-top: size(47, 1905);
-  text-transform: uppercase;
-  font-size: size(13, 1905);
-  padding: size(14, 1905) size(114, 1905);
+  width: size(406, 1905);
+  margin: size(47, 1905) auto;
+}
+
+@media (max-width: 744px){
+  .home{
+    height: calc(100vh - 9.67742vw);
+  }
+  .title{
+    padding-top: size(26, 744);
+    font-size: size(24, 744);
+    line-height: size(29, 744);
+  }
+  .applications{
+    margin-top: size(11, 744);
+  }
+  .applications-item{
+    padding: size(25, 744);
+    margin-top: size(15, 744);
+    border-radius: size(5, 744);
+    box-shadow: 0px 0px size(30, 744) rgba(0, 0, 0, 0.1);
+    .applications-item__title{
+      font-size: size(18, 744);
+      line-height: size(22, 744);
+    }
+    .applications-item__text{
+      margin-top: size(9, 744);
+      font-size: size(14, 744);
+      line-height: size(24, 744);
+    }
+  }
+  button{
+    display: block;
+    width: size(264, 744);
+    margin: size(39, 744) auto;
+  }
+}
+@media (max-width: 320px){
+  .home{
+    height: calc(100vh - 12.5vw);
+  }
+  .title{
+    padding-top: size(26, 320);
+    font-size: size(18, 320);
+    line-height: size(22, 320);
+  }
+  .applications{
+    margin-top: size(8, 320);
+  }
+  .applications-item{
+    padding: size(16, 320);
+    margin-top: size(10, 320);
+    border-radius: size(5, 320);
+    box-shadow: 0px 0px size(30, 320) rgba(0, 0, 0, 0.1);
+    .applications-item__title{
+      font-size: size(16, 320);
+      line-height: size(20, 320);
+    }
+    .applications-item__text{
+      margin-top: size(9, 320);
+      font-size: size(13, 320);
+      line-height: size(18, 320);
+    }
+  }
+  button{
+    display: block;
+    width: 100%;
+    margin: size(40.5, 320) auto;
+  }
 }
 </style>

@@ -24,12 +24,27 @@ a{
   }
 }
 
+.form-title{
+  // margin-bottom: size(25, 1905);
+  font-style: normal;
+  font-weight: 500;
+  font-size: size(24, 1905);
+  line-height: size(29, 1905);
+  text-align: center;
+  @media (max-width: 744px){
+    font-size: size(24, 744);
+    line-height: size(29, 744);
+  }
+  @media (max-width: 320px){
+    font-size: size(18, 320);
+    line-height: size(22, 320);
+  }
+}
+
 .btn{
   cursor: pointer;
   color: white;
   text-decoration: none;
-  border-radius: size(5, 1905);
-  background: #EE5173;
   display: block;
   font-weight: 600;
   line-height: size(16, 1905);
@@ -37,8 +52,47 @@ a{
   font-size: size(13, 1905);
 }
 
-.form-title{
-  margin-bottom: size(25, 1905);
+.btn-primary{
+  border-radius: size(5, 1905);
+  background: #EE5173;
+  transition: 0.1s ease-in;
+  padding: size(14.5, 1905) 0;
+  &:hover{
+    background: #f86686;
+    transition: 0.1s ease-in;
+  }
+  &:active{
+    background: #c9637c;
+  }
+  @media (max-width: 744px){
+    padding: size(14.5, 744) 0;
+    border-radius: size(5, 744);
+    line-height: size(16, 744);
+    font-size: size(13, 744);
+  }
+  @media (max-width: 320px){
+    padding: size(12.5, 320) 0;
+    border-radius: size(5, 320);
+    line-height: size(15, 320);
+    font-size: size(12, 320);
+  }
+}
+
+.btn-secondary{
+  font-style: normal;
+  font-weight: normal;
+  font-size: size(14, 1905);
+  line-height: size(24, 1905);
+  text-align: center;
+  color: #4F8CFF;
+  @media (max-width: 744px){
+    font-size: size(15, 744);
+    line-height: size(24, 744);
+  }
+  @media (max-width: 320px){
+    font-size: size(14, 320);
+    line-height: size(24, 320);
+  }
 }
 
 .form-item{
@@ -63,15 +117,103 @@ a{
     }
   }
   input{
+    font-style: normal;
+    font-weight: normal;
+    font-size: size(15, 1905);
+    line-height: size(24, 1905);
+    padding: size(10, 1905) size(13, 1905);
     height: size(45, 1905);
     background: white;
     border-radius: size(5, 1905);
     border: 1px solid #C6CEDB;
+    &:focus{
+      border: 1px solid #4F8CFF;
+      box-shadow: 0px 0px size(5, 1905) rgba(79, 140, 255, 0.25);
+      border-radius: 5px;
+    }
   }
   textarea{
+    font-size: size(15, 1905);
+    line-height: size(24, 1905);
+    padding: size(10, 1905) size(13, 1905);
     background: white;
     border-radius: size(5, 1905);
     border: 1px solid #C6CEDB;
     resize: none;
+    &:focus{
+      border: 1px solid #4F8CFF;
+      box-shadow: 0px 0px 5px rgba(79, 140, 255, 0.25);
+      border-radius: size(5, 1905);
+    }
+  }
+  @media (max-width: 744px){
+    width: size(422, 744);
+    label{
+      margin-bottom: size(2, 744);
+      font-size: size(11, 744);
+      line-height: size(24, 744);
+      sup{
+        font-size: size(16, 744);
+        line-height: size(24, 744);
+      }
+    }
+    input{
+      font-size: size(15, 744);
+      line-height: size(24, 744);
+      padding: size(10, 744) size(13, 744);
+      height: size(45, 744);
+      border-radius: size(5, 744);
+      &:focus{
+        box-shadow: 0px 0px size(5, 744) rgba(79, 140, 255, 0.25);
+        border-radius: size(5, 744);
+      }
+    }
+    textarea {
+      font-size: size(15, 744);
+      line-height: size(24, 744);
+      padding: size(10, 744) size(13, 744);
+      border-radius: size(5, 744);
+
+      &:focus {
+        border: 1px solid #4F8CFF;
+        box-shadow: 0px 0px 5px rgba(79, 140, 255, 0.25);
+        border-radius: size(5, 744);
+      }
+    }
+  }
+  @media (max-width: 320px){
+    width: size(242, 320);
+    label{
+      margin-bottom: size(2, 320);
+      font-size: size(10, 320);
+      line-height: size(24, 320);
+      sup{
+        font-size: size(16, 320);
+        line-height: size(24, 320);
+      }
+    }
+    input{
+      font-size: size(15, 320);
+      line-height: size(24, 320);
+      padding: size(10, 320) size(13, 320);
+      height: size(40, 320);
+      border-radius: size(5, 320);
+      &:focus{
+        box-shadow: 0px 0px size(5, 320) rgba(79, 140, 255, 0.25);
+        border-radius: size(5, 320);
+      }
+    }
+    textarea {
+      font-size: size(15, 320);
+      line-height: size(24, 320);
+      padding: size(10, 320) size(13, 320);
+      border-radius: size(5, 320);
+
+      &:focus {
+        border: 1px solid #4F8CFF;
+        box-shadow: 0px 0px 5px rgba(79, 140, 255, 0.25);
+        border-radius: size(5, 320);
+      }
+    }
   }
 }
