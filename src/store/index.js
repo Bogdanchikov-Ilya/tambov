@@ -3,6 +3,9 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import application from './applications'
+import preloader from './preloader'
+
 export default new Vuex.Store({
   state: {
   },
@@ -11,5 +14,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    application,
+    preloader
   }
 })

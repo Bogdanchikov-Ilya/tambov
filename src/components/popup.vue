@@ -2,20 +2,21 @@
 <transition name="fade">
   <div class="popup-wrapper" v-if="isOpen">
     <div class="popup">
-      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" @click="close">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" class="close-btn" @click="close">
         <path d="M9.46584 8.00012L15.6959 1.76972C16.1014 1.36446 16.1014 0.709208 15.6959 0.303946C15.2907 -0.101315 14.6354 -0.101315 14.2302 0.303946L7.99991 6.53434L1.76983 0.303946C1.36438 -0.101315 0.709335 -0.101315 0.304082 0.303946C-0.101361 0.709208 -0.101361 1.36446 0.304082 1.76972L6.53416 8.00012L0.304082 14.2305C-0.101361 14.6358 -0.101361 15.291 0.304082 15.6963C0.506044 15.8984 0.771594 16 1.03695 16C1.30231 16 1.56767 15.8984 1.76983 15.6963L7.99991 9.46589L14.2302 15.6963C14.4323 15.8984 14.6977 16 14.963 16C15.2284 16 15.4938 15.8984 15.6959 15.6963C16.1014 15.291 16.1014 14.6358 15.6959 14.2305L9.46584 8.00012Z" fill="black"/>
       </svg>
-      <p class="popup-title">Создать заявку</p>
+      <p class="form-title">Создать заявку</p>
       <form action="#" class="popup-form" @submit="createApp">
         <div class="form-item">
-          <label class="popup-item__label" for="title">заголовок <sup>*</sup></label>
-          <input type="text" class="popup-item__input" id="title" name="title">
+          <!--    {{$v.login.required}} {{$v.login.minLength}}-->
+          <label class="form-item__label" for="title">заголовок <sup>*</sup></label>
+          <input type="text" class="reg-item__input" v-model="title" id="title" name="title">
         </div>
         <div class="form-item">
-          <label class="popup-item__label" for="text">текст заявки <sup>*</sup></label>
-          <textarea id="text" name="title"></textarea>
+          <label class="popup-item__label" for="text">текст заявки <sup>*</sup></label>`
+          <textarea id="text" name="title" v-model="textarea"></textarea>
         </div>
-        <input type="submit" class="btn btn-primary" value="создать заявку">
+        <btnPrimary text="создать заявку"/>
       </form>
     </div>
   </div>
@@ -23,11 +24,21 @@
 </template>
 
 <script>
+import defaultInput from '@/components/default-input'
+import btnPrimary from '@/components/btn-primary'
+
+import appServices from '@/services/app-services'
 export default {
+  components: {btnPrimary, defaultInput},
   data () {
     return {
-      isOpen: false
+      isOpen: false,
+      title: '',
+      textarea: ''
     }
+  },
+  created() {
+    this.appServices = new appServices()
   },
   mounted() {
     document.addEventListener("keydown", this.handleKeydown);
@@ -49,7 +60,20 @@ export default {
     },
     createApp(e) {
       e.preventDefault();
-      this.isOpen = false;
+      this.appServices.createApplication({
+        token: localStorage.getItem('token'),
+        task_info: {
+          name: this.title,
+          text_task: this.textarea
+        }
+      })
+      this.close()
+      // обновляю список
+      this.appServices.loadApplications({token: localStorage.getItem('token')})
+      this.$store.commit('setNull')
+
+      this.title = ''
+      this.textarea = ''
     }
   }
 }
@@ -93,19 +117,12 @@ export default {
   border-radius: 5px;
 }
 
-svg{
+.close-btn{
   position: absolute;
   top: size(14, 1905);
   right: size(13, 1905);
   cursor: pointer;
   width: size(16, 1905);
-}
-.popup-title{
-  font-style: normal;
-  font-weight: 500;
-  font-size: size(24, 1905);
-  line-height: size(29, 1905);
-  text-align: center;
 }
 
 .popup-form{
@@ -120,6 +137,56 @@ svg{
   margin-top: size(25, 1905);
   textarea{
     height: size(205, 1905) !important;
+  }
+}
+
+@media (max-width: 744px){
+  .popup{
+    width: size(534, 744);
+    padding: size(58, 744) size(64, 744) size(62, 744);
+  }
+  .close-btn{
+    top: size(14, 744);
+    right: size(13, 744);
+    width: size(16, 744);
+  }
+  .popup-form{
+    margin-top: size(25, 744);
+    .btn-primary{
+      width: 100%;
+      margin-top: size(52, 744);
+    }
+  }
+  .form-item{
+    margin-top: size(25, 744);
+    textarea{
+      height: size(205, 744) !important;
+    }
+  }
+}
+
+@media (max-width: 320px){
+  .popup{
+    width: size(290, 320);
+    padding: size(28, 320) size(24, 320) size(22, 320);
+  }
+  .close-btn{
+    top: size(14, 320);
+    right: size(13, 320);
+    width: size(16, 320);
+  }
+  .popup-form{
+    margin-top: size(25, 320);
+    .btn-primary{
+      width: 100%;
+      margin-top: size(52, 320);
+    }
+  }
+  .form-item{
+    margin-top: size(25, 320);
+    textarea{
+      height: size(205, 320) !important;
+    }
   }
 }
 </style>

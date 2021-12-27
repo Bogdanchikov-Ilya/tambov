@@ -217,3 +217,25 @@ a{
     }
   }
 }
+
+// validate
+
+.msg-error{
+  position: absolute;
+  top: size(75, 1905);
+  font-style: normal;
+  font-weight: normal;
+  font-size: size(11, 1905);
+  line-height: size(16, 1905);
+  color: #EE5173;
+  @media (max-width: 744px){
+    top: size(75, 744);
+    font-size: size(11, 744);
+    line-height: size(16, 744);
+  }
+  @media (max-width: 320px){
+    top: size(70, 320);
+    font-size: size(11, 320);
+    line-height: size(16, 320);
+  }
+}

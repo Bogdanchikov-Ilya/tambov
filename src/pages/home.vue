@@ -4,9 +4,9 @@
     <div class="container">
       <h1 class="title">Список заявок</h1>
       <ul class="applications">
-        <li class="applications-item" v-for="item in 4">
-          <span class="applications-item__title">Заголовок заявки</span>
-          <p class="applications-item__text">Гомогенная среда экстремально отклоняет фонон. Турбулентность стабилизирует гидродинамический удар. Сверхновая тормозит фонон. Призма, как следует из совокупности экспериментальных наблюдений, притягивает лазер.</p>
+        <li class="applications-item" v-for="item in applications.message">
+          <span class="applications-item__title">{{item.name}}</span>
+          <p class="applications-item__text">{{item.text_task }}</p>
         </li>
       </ul>
       <button class="btn btn-primary" @click="openPopup">Создать заявку</button>
@@ -15,17 +15,32 @@
 </template>
 
 <script>
-import popup from "../components/popup";
+import popup from "@/components/popup";
+import appServices from '@/services/app-services'
+
 export default {
   data () {
     return {
-      applications: null,
+      appServices: null
+    }
+  },
+  computed: {
+    applications() {
+      return this.appServices.getApplications()
     }
   },
   methods: {
     openPopup () {
       this.$refs.popup.open()
     }
+  },
+  created() {
+    let token = localStorage.getItem('token')
+    if(!token) this.$router.push('/auth')
+
+    this.appServices = new appServices()
+
+    this.appServices.loadApplications({token: token})
   },
   components: {
     popup
@@ -42,8 +57,13 @@ export default {
   background: #F2F2F2;
 }
 
+.container{
+  width: auto;
+}
+
 .title{
-  padding-top: size(57, 1905);
+  width: 100%;
+  padding: size(57, 1905) size(122, 1905) 0;
   font-size: size(32, 1905);
   font-style: normal;
   font-weight: 500;
@@ -51,16 +71,32 @@ export default {
 }
 
 .applications{
+  padding: size(10, 1905) size(122, 1905);
   max-height: 62.90909090909091vh;
   overflow-y: auto;
   margin-top: size(14, 1905);
   display: flex;
   flex-direction: column;
+  &::-webkit-scrollbar {
+    width: 4px !important;
+    background-color: transparent !important;
+    margin-right: size(20, 1905) !important;
+
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: #EE5173;
+
+  }
+  &::-webkit-scrollbar-track {
+    margin-top: size(20, 1905);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color: #ffffff !important;
+  }
 }
 
 .applications-item{
-
-
   display: inline-block;
   border-radius: size(5, 1905);
   margin-top: size(20, 1905);
@@ -99,7 +135,9 @@ button{
     line-height: size(29, 744);
   }
   .applications{
+    padding: size(10, 744) size(40, 744);
     margin-top: size(11, 744);
+    max-height: 67.90909090909091vh;
   }
   .applications-item{
     padding: size(25, 744);
@@ -132,6 +170,8 @@ button{
     line-height: size(22, 320);
   }
   .applications{
+    padding: size(10, 320) size(15, 320);
+    max-height: 62.90909090909091vh;
     margin-top: size(8, 320);
   }
   .applications-item{
@@ -151,7 +191,7 @@ button{
   }
   button{
     display: block;
-    width: 100%;
+    width: size(290, 320);
     margin: size(40.5, 320) auto;
   }
 }
