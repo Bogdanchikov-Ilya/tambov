@@ -29,9 +29,7 @@ class appServices {
     try {
       store.commit('setTrue')
       const result =  await api.post(`/create_task/`, data)
-      if(result.data.status === true){
-        alert('Создано')
-      } else {
+      if(result.data.status !== true){
         alert(result.data.message)
       }
       return result.data
