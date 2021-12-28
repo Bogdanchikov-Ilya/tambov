@@ -1,14 +1,22 @@
 <template>
   <div>
-    <div class="form-item">
+    <div class="form-item" :class="{'bottom': submitted && !$v.passwordValue.required || submitted && !$v.passwordValue.minLength}">
       <label class="reg-item__label" for="password">пароль <sup>*</sup></label>
       <div class="input-password__wrapper">
-        <input :type="showPassword" class="reg-item__input" v-model="passwordValue" :input="checkFormatPassword()" id="password" name="password">
-        <svg viewBox="0 0 20 13" xmlns="http://www.w3.org/2000/svg" v-if="showPassword === 'text'" @click="password(showPassword)">
+        <input :type="showPassword"
+               class="reg-item__input"
+               :class="{'error': submitted && !$v.passwordValue.required || submitted && !$v.passwordValue.minLength}"
+               v-model="passwordValue"
+               @input="checkValidPassword()"
+               id="password"
+               name="password">
+        <p class="msg-error" v-if="submitted && !$v.passwordValue.required">Заполните это поле</p>
+        <p class="msg-error" v-if="submitted && !$v.passwordValue.minLength">Минимум 6 символов</p>
+        <svg viewBox="0 0 20 13" xmlns="http://www.w3.org/2000/svg" v-if="showPassword === 'text'" @click="showHidePassword(showPassword)">
           <path d="M19.8729 6.10328C19.6942 5.85402 15.4371 0 9.99991 0C4.56275 0 0.305392 5.85402 0.126914 6.10304C-0.0423048 6.33952 -0.0423048 6.66025 0.126914 6.89672C0.305392 7.14598 4.56275 13 9.99991 13C15.4371 13 19.6942 7.14594 19.8729 6.89692C20.0424 6.66048 20.0424 6.33952 19.8729 6.10328ZM9.99991 11.6552C5.99486 11.6552 2.52606 7.76975 1.49922 6.49954C2.52473 5.22822 5.98627 1.34482 9.99991 1.34482C14.0048 1.34482 17.4733 5.22957 18.5006 6.50046C17.4751 7.77174 14.0136 11.6552 9.99991 11.6552Z" fill="#999999"/>
           <path d="M9.99991 2.46552C7.81858 2.46552 6.04385 4.27544 6.04385 6.50002C6.04385 8.7246 7.81858 10.5345 9.99991 10.5345C12.1812 10.5345 13.956 8.7246 13.956 6.50002C13.956 4.27544 12.1812 2.46552 9.99991 2.46552ZM9.99991 9.18966C8.54561 9.18966 7.36256 7.98312 7.36256 6.50002C7.36256 5.01692 8.54565 3.81038 9.99991 3.81038C11.4542 3.81038 12.6373 5.01692 12.6373 6.50002C12.6373 7.98312 11.4542 9.18966 9.99991 9.18966Z" fill="#999999"/>
         </svg>
-        <svg viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg" v-if="showPassword === 'password'" @click="password(showPassword)">
+        <svg viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg" v-if="showPassword === 'password'" @click="showHidePassword(showPassword)">
           <path d="M10.9996 14.6664C10.4355 14.6652 9.8727 14.6127 9.31812 14.5094C9.14608 14.4819 8.98946 14.394 8.87632 14.2615C8.76318 14.129 8.70091 13.9606 8.70066 13.7864C8.70249 13.6789 8.72754 13.5732 8.77409 13.4763C8.82064 13.3795 8.88759 13.2938 8.97034 13.2253C9.0531 13.1567 9.1497 13.1069 9.25353 13.0792C9.35736 13.0515 9.46594 13.0466 9.57185 13.0648C10.0426 13.1534 10.5206 13.1986 10.9996 13.1997C15.3439 13.1997 19.1168 9.39595 20.3033 8.06643C19.5127 7.18142 18.6439 6.36952 17.7074 5.64059C17.6312 5.5816 17.5674 5.50819 17.5196 5.42455C17.4718 5.3409 17.4409 5.24866 17.4288 5.15309C17.4042 4.96007 17.4573 4.76521 17.5765 4.61136C17.6956 4.45752 17.871 4.35731 18.064 4.33276C18.1595 4.3206 18.2566 4.32739 18.3495 4.35273C18.4425 4.37808 18.5295 4.42148 18.6057 4.48047C19.7996 5.40035 20.8859 6.45199 21.8441 7.61544C21.9451 7.74448 22 7.90364 22 8.06753C22 8.23142 21.9451 8.39059 21.8441 8.51963C21.6468 8.76969 16.9572 14.6664 10.9996 14.6664Z" fill="#999999"/>
           <path d="M18.8514 0.214708C18.7138 0.0772306 18.5273 0 18.3329 0C18.1384 0 17.952 0.0772306 17.8144 0.214708L15.4825 2.54669C14.5996 2.12123 13.6654 1.81165 12.7032 1.62563C12.1415 1.52001 11.5712 1.46674 10.9996 1.4665C5.04209 1.4665 0.35247 7.36317 0.155938 7.61397C0.0549002 7.74301 0 7.90218 0 8.06607C0 8.22996 0.0549002 8.38912 0.155938 8.51816C1.11311 9.6806 2.19846 10.7313 3.39137 11.6502C3.95567 12.0925 4.54689 12.4993 5.16162 12.8683L3.14791 14.8812C3.07787 14.9489 3.022 15.0298 2.98357 15.1193C2.94514 15.2087 2.92491 15.305 2.92406 15.4023C2.92322 15.4997 2.94177 15.5963 2.97864 15.6864C3.01551 15.7765 3.06997 15.8584 3.13882 15.9272C3.20767 15.9961 3.28955 16.0506 3.37967 16.0874C3.4698 16.1243 3.56636 16.1429 3.66373 16.142C3.7611 16.1412 3.85733 16.1209 3.9468 16.0825C4.03627 16.0441 4.11719 15.9882 4.18483 15.9182L18.8514 1.25163C18.9888 1.11411 19.0661 0.927621 19.0661 0.73317C19.0661 0.538718 18.9888 0.352227 18.8514 0.214708ZM4.2919 10.493C3.35537 9.76385 2.48653 8.9517 1.69592 8.06643C2.88245 6.73765 6.65541 2.93315 10.9996 2.93315C11.4821 2.93353 11.9635 2.9787 12.4377 3.06808C13.1015 3.19438 13.75 3.39104 14.3722 3.65474L13.0214 5.00553C12.3164 4.53967 11.4721 4.33164 10.6313 4.41664C9.79052 4.50163 9.00492 4.87443 8.40738 5.47198C7.80984 6.06952 7.43704 6.85512 7.35204 7.69588C7.26704 8.53665 7.47507 9.38097 7.94093 10.086L6.23301 11.7969C5.55385 11.4121 4.90494 10.9762 4.2919 10.493ZM9.01965 9.00802C8.87674 8.71459 8.80156 8.39281 8.79965 8.06643C8.7998 7.48466 9.02961 6.92648 9.43912 6.51325C9.76558 6.20278 10.1775 5.99707 10.6218 5.92258C11.0661 5.84809 11.5226 5.90823 11.9324 6.09525L9.01965 9.00802Z" fill="#999999"/>
         </svg>
@@ -17,21 +25,31 @@
     <div class="form-item" v-if="repeatBlock">
       <label class="reg-item__label" for="repeat-password">повторите пароль <sup>*</sup></label>
       <div class="input-password__wrapper">
-        <input :type="showPassword" class="reg-item__input" v-model="repeatPasswordValue" :input="checkFormatPassword()" id="repeat-password" name="repeat-password">
-        <svg viewBox="0 0 20 13" xmlns="http://www.w3.org/2000/svg" v-if="showPassword === 'text'" @click="password(showPassword)">
+        <input :type="showPassword"
+               class="reg-item__input" v-model="repeatPasswordValue"
+               :class="{'error': submitted && !$v.repeatPasswordValue.required || submitted && !$v.repeatPasswordValue.sameAsPassword}"
+               @input="checkValidPassword()"
+               id="repeat-password"
+               name="repeat-password">
+        <svg viewBox="0 0 20 13" xmlns="http://www.w3.org/2000/svg" v-if="showPassword === 'text'" @click="showHidePassword(showPassword)">
           <path d="M19.8729 6.10328C19.6942 5.85402 15.4371 0 9.99991 0C4.56275 0 0.305392 5.85402 0.126914 6.10304C-0.0423048 6.33952 -0.0423048 6.66025 0.126914 6.89672C0.305392 7.14598 4.56275 13 9.99991 13C15.4371 13 19.6942 7.14594 19.8729 6.89692C20.0424 6.66048 20.0424 6.33952 19.8729 6.10328ZM9.99991 11.6552C5.99486 11.6552 2.52606 7.76975 1.49922 6.49954C2.52473 5.22822 5.98627 1.34482 9.99991 1.34482C14.0048 1.34482 17.4733 5.22957 18.5006 6.50046C17.4751 7.77174 14.0136 11.6552 9.99991 11.6552Z" fill="#999999"/>
           <path d="M9.99991 2.46552C7.81858 2.46552 6.04385 4.27544 6.04385 6.50002C6.04385 8.7246 7.81858 10.5345 9.99991 10.5345C12.1812 10.5345 13.956 8.7246 13.956 6.50002C13.956 4.27544 12.1812 2.46552 9.99991 2.46552ZM9.99991 9.18966C8.54561 9.18966 7.36256 7.98312 7.36256 6.50002C7.36256 5.01692 8.54565 3.81038 9.99991 3.81038C11.4542 3.81038 12.6373 5.01692 12.6373 6.50002C12.6373 7.98312 11.4542 9.18966 9.99991 9.18966Z" fill="#999999"/>
         </svg>
-        <svg viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg" v-if="showPassword === 'password'" @click="password(showPassword)">
+        <svg viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg" v-if="showPassword === 'password'" @click="showHidePassword(showPassword)">
           <path d="M10.9996 14.6664C10.4355 14.6652 9.8727 14.6127 9.31812 14.5094C9.14608 14.4819 8.98946 14.394 8.87632 14.2615C8.76318 14.129 8.70091 13.9606 8.70066 13.7864C8.70249 13.6789 8.72754 13.5732 8.77409 13.4763C8.82064 13.3795 8.88759 13.2938 8.97034 13.2253C9.0531 13.1567 9.1497 13.1069 9.25353 13.0792C9.35736 13.0515 9.46594 13.0466 9.57185 13.0648C10.0426 13.1534 10.5206 13.1986 10.9996 13.1997C15.3439 13.1997 19.1168 9.39595 20.3033 8.06643C19.5127 7.18142 18.6439 6.36952 17.7074 5.64059C17.6312 5.5816 17.5674 5.50819 17.5196 5.42455C17.4718 5.3409 17.4409 5.24866 17.4288 5.15309C17.4042 4.96007 17.4573 4.76521 17.5765 4.61136C17.6956 4.45752 17.871 4.35731 18.064 4.33276C18.1595 4.3206 18.2566 4.32739 18.3495 4.35273C18.4425 4.37808 18.5295 4.42148 18.6057 4.48047C19.7996 5.40035 20.8859 6.45199 21.8441 7.61544C21.9451 7.74448 22 7.90364 22 8.06753C22 8.23142 21.9451 8.39059 21.8441 8.51963C21.6468 8.76969 16.9572 14.6664 10.9996 14.6664Z" fill="#999999"/>
           <path d="M18.8514 0.214708C18.7138 0.0772306 18.5273 0 18.3329 0C18.1384 0 17.952 0.0772306 17.8144 0.214708L15.4825 2.54669C14.5996 2.12123 13.6654 1.81165 12.7032 1.62563C12.1415 1.52001 11.5712 1.46674 10.9996 1.4665C5.04209 1.4665 0.35247 7.36317 0.155938 7.61397C0.0549002 7.74301 0 7.90218 0 8.06607C0 8.22996 0.0549002 8.38912 0.155938 8.51816C1.11311 9.6806 2.19846 10.7313 3.39137 11.6502C3.95567 12.0925 4.54689 12.4993 5.16162 12.8683L3.14791 14.8812C3.07787 14.9489 3.022 15.0298 2.98357 15.1193C2.94514 15.2087 2.92491 15.305 2.92406 15.4023C2.92322 15.4997 2.94177 15.5963 2.97864 15.6864C3.01551 15.7765 3.06997 15.8584 3.13882 15.9272C3.20767 15.9961 3.28955 16.0506 3.37967 16.0874C3.4698 16.1243 3.56636 16.1429 3.66373 16.142C3.7611 16.1412 3.85733 16.1209 3.9468 16.0825C4.03627 16.0441 4.11719 15.9882 4.18483 15.9182L18.8514 1.25163C18.9888 1.11411 19.0661 0.927621 19.0661 0.73317C19.0661 0.538718 18.9888 0.352227 18.8514 0.214708ZM4.2919 10.493C3.35537 9.76385 2.48653 8.9517 1.69592 8.06643C2.88245 6.73765 6.65541 2.93315 10.9996 2.93315C11.4821 2.93353 11.9635 2.9787 12.4377 3.06808C13.1015 3.19438 13.75 3.39104 14.3722 3.65474L13.0214 5.00553C12.3164 4.53967 11.4721 4.33164 10.6313 4.41664C9.79052 4.50163 9.00492 4.87443 8.40738 5.47198C7.80984 6.06952 7.43704 6.85512 7.35204 7.69588C7.26704 8.53665 7.47507 9.38097 7.94093 10.086L6.23301 11.7969C5.55385 11.4121 4.90494 10.9762 4.2919 10.493ZM9.01965 9.00802C8.87674 8.71459 8.80156 8.39281 8.79965 8.06643C8.7998 7.48466 9.02961 6.92648 9.43912 6.51325C9.76558 6.20278 10.1775 5.99707 10.6218 5.92258C11.0661 5.84809 11.5226 5.90823 11.9324 6.09525L9.01965 9.00802Z" fill="#999999"/>
         </svg>
+        <p class="msg-error" v-if="submitted && !$v.repeatPasswordValue.required && $v.repeatPasswordValue.sameAsPassword">Заполните это поле</p>
+        <p class="msg-error" v-if="submitted && !$v.repeatPasswordValue.sameAsPassword">Пароли должны совпадать</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import {minLength, required, sameAs} from "vuelidate/lib/validators";
+
 export default {
   props: {
     labelText: String,
@@ -42,19 +60,24 @@ export default {
       showPassword: 'password',
       repeatBlock: '',
       passwordValue: '',
-      repeatPasswordValue: ''
+      repeatPasswordValue: '',
+      submitted: false
     }
   },
   methods: {
-    password (st) {
-      if(this.passwordValue)
+    showHidePassword (st) {
+      if(this.passwordValue || this.repeatPasswordValue)
       (st === 'password')
           ? this.showPassword = 'text'
           : this.showPassword = 'password'
     },
-    checkFormatPassword() {
+    checkValidPassword() {
+      this.submitted = true
+      this.passwordValue = this.passwordValue.trim()
       if(!this.repeatBlock && this.passwordValue.trim() !== ''){
-        this.$emit('auth', {password: this.passwordValue, repeatPassword: this.repeatPasswordValue})
+        if(this.$v.passwordValue.required && this.$v.passwordValue.minLength){
+          this.$emit('auth', {password: this.passwordValue})
+        }else{ this.$emit('auth', {password: ''}) }
       } else {
         if(this.passwordValue !== this.repeatPasswordValue && this.passwordValue.trim() !== ''){
           // говорю юзеру что не равны пароли
@@ -68,7 +91,17 @@ export default {
     (this.repeat)
         ? this.repeatBlock = 'Repeat'
         : this.repeatBlock
-  }
+  },
+  validations: {
+    passwordValue: {
+      required,
+      minLength: minLength(6)
+    },
+    repeatPasswordValue: {
+      required,
+      sameAsPassword: sameAs('passwordValue')
+    }
+  },
 }
 </script>
 
@@ -77,6 +110,7 @@ export default {
 .form-item {
   margin-bottom: size(24, 1905);
 }
+
 .input-password__wrapper{
   position: relative;
   svg{
@@ -110,6 +144,9 @@ export default {
 }
 
 @media (max-width: 320px){
+  .bottom{
+    margin-bottom: size(20, 320) !important;
+  }
   .form-item {
     margin-bottom: size(12, 320);
   }
@@ -118,6 +155,20 @@ export default {
       right: size(11, 320);
       width: size(20, 320);
     }
+  }
+}
+
+
+// errors
+.msg-error{
+  top: size(48, 1905);
+  @media (max-width: 744px){
+    top: size(48, 744);
+  }
+  @media (max-width: 320px){
+
+    top: size(42, 320);
+    margin-bottom: size(20, 320);
   }
 }
 </style>

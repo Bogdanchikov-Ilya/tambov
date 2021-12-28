@@ -12,6 +12,7 @@
     "i": "^0.3.7",
     "npm": "^8.3.0",
     "vue": "^2.6.11",
+    "vue-imask": "^6.2.2",
     "vue-router": "^3.2.0",
     "vuelidate": "^0.7.7",
     "vuex": "^3.4.0"
@@ -21,6 +22,7 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/composition-api": "^1.4.3",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.0.5",
     "vue-template-compiler": "^2.6.11"

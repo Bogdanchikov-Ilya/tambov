@@ -10,13 +10,23 @@
         <div class="form-item">
           <!--    {{$v.login.required}} {{$v.login.minLength}}-->
           <label class="form-item__label" for="title">заголовок <sup>*</sup></label>
-          <input type="text" class="reg-item__input" v-model="title" id="title" name="title">
+          <input type="text" class="reg-item__input"
+                 v-model="title"
+                 @input="submittedTitle = true"
+                 :class="{'error': submittedTitle && !$v.title.required}"
+                 id="title" name="title">
+          <p v-if="submittedTitle && !$v.title.required" class="msg-error">Заполните это поле</p>
         </div>
         <div class="form-item">
-          <label class="popup-item__label" for="text">текст заявки <sup>*</sup></label>`
-          <textarea id="text" name="title" v-model="textarea"></textarea>
+          <label class="popup-item__label" for="text">текст заявки <sup>*</sup></label>
+          <textarea id="text"
+                    name="title"
+                    v-model="textarea"
+                    @input="submittedTextarea = true"
+                    :class="{'error': submittedTextarea && !$v.textarea.required}"></textarea>
+          <p v-if="submittedTextarea && !$v.textarea.required" class="msg-error textarea">Заполните это поле</p>
         </div>
-        <btnPrimary text="создать заявку"/>
+        <btnPrimary text="создать заявку" @click="createApp" />
       </form>
     </div>
   </div>
@@ -27,6 +37,7 @@
 import defaultInput from '@/components/default-input'
 import btnPrimary from '@/components/btn-primary'
 
+import {required} from "vuelidate/lib/validators";
 import appServices from '@/services/app-services'
 export default {
   components: {btnPrimary, defaultInput},
@@ -34,7 +45,9 @@ export default {
     return {
       isOpen: false,
       title: '',
-      textarea: ''
+      textarea: '',
+      submittedTitle: false,
+      submittedTextarea: false
     }
   },
   created() {
@@ -60,20 +73,35 @@ export default {
     },
     createApp(e) {
       e.preventDefault();
-      this.appServices.createApplication({
-        token: localStorage.getItem('token'),
-        task_info: {
-          name: this.title,
-          text_task: this.textarea
-        }
-      })
-      this.close()
-      // обновляю список
-      this.appServices.loadApplications({token: localStorage.getItem('token')})
-      this.$store.commit('setNull')
+      this.submittedTitle = true
+      this.submittedTextarea = true
+      if(this.$v.title.required && this.$v.textarea.required){
+        this.appServices.createApplication({
+          token: localStorage.getItem('token'),
+          task_info: {
+            name: this.title,
+            text_task: this.textarea
+          }
+        })
+        // обновляю список
+        this.appServices.loadApplications({token: localStorage.getItem('token')})
+        this.$store.commit('setNull')
 
-      this.title = ''
-      this.textarea = ''
+        this.title = ''
+        this.submittedTitle = false
+        this.textarea = ''
+        this.submittedTextarea = false
+
+        this.close()
+      }
+    }
+  },
+  validations: {
+    title: {
+      required
+    },
+    textarea: {
+      required
     }
   }
 }
@@ -187,6 +215,26 @@ export default {
     textarea{
       height: size(205, 320) !important;
     }
+  }
+}
+
+// errors
+.msg-error{
+  &.textarea{
+    top:size(235, 1905);
+  }
+  top: size(75, 1905);
+  @media (max-width: 744px){
+    &.textarea{
+      top:size(235, 744);
+    }
+    top: size(75, 744);
+  }
+  @media (max-width: 320px){
+    &.textarea{
+      top:size(240, 320);
+    }
+    top: size(70, 320);
   }
 }
 </style>

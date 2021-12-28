@@ -6,11 +6,13 @@ import router from "../router";
 class appServices {
   async loadApplications(data) {
     try {
+      store.commit('setTrue')
       const result =  await api.post('/get_tasks/', {token: localStorage.getItem('token')});
-      console.log(result.data)
       return result.data
     } catch (e) {
       throw e
+    } finally {
+      store.commit('setFalse')
     }
   }
   async storeApplications(data){
@@ -25,16 +27,19 @@ class appServices {
   }
   async createApplication(data){
     try {
+      store.commit('setTrue')
       const result =  await api.post(`/create_task/`, data)
       if(result.data.status === true){
         alert('Создано')
       } else {
         alert(result.data.message)
       }
-      console.log(result)
       return result.data
     } catch (e) {
+      console.log(e)
       throw e
+    } finally {
+      store.commit('setFalse')
     }
   }
 }

@@ -24,8 +24,8 @@ class authServices {
     try {
       store.commit('setTrue')
       const result =  await api.post('/login/', data)
-      console.log(result)
       if(result.data.status === 200 || result.data.status === 200 || result.data.status === true) {
+        store.commit('setNull')
         localStorage.setItem('token', result.data.token)
         router.push('/')
       } else {
@@ -39,13 +39,12 @@ class authServices {
     }
   }
   async logout(token){
-    console.log(token)
     try {
       store.commit('setTrue')
       const result =  await api.post('/logout/', token)
-      console.log(result)
       if(result.data.status === 200 || result.data.status === 200 || result.data.status === true) {
         localStorage.clear()
+        store.commit('setNull')
         router.push('/auth')
       } else {
         alert(result.data.message)

@@ -3,7 +3,8 @@
     <popup ref="popup"/>
     <div class="container">
       <h1 class="title">Список заявок</h1>
-      <ul class="applications">
+      <p class="title subtitle" v-if="!applications.status">Ошибка загрузки - {{applications.message}}</p>
+      <ul class="applications" v-if="applications.status">
         <li class="applications-item" v-for="item in applications.message">
           <span class="applications-item__title">{{item.name}}</span>
           <p class="applications-item__text">{{item.text_task }}</p>
@@ -21,7 +22,8 @@ import appServices from '@/services/app-services'
 export default {
   data () {
     return {
-      appServices: null
+      appServices: null,
+      error: ''
     }
   },
   computed: {
@@ -39,7 +41,6 @@ export default {
     if(!token) this.$router.push('/auth')
 
     this.appServices = new appServices()
-
     this.appServices.loadApplications({token: token})
   },
   components: {
@@ -68,6 +69,10 @@ export default {
   font-style: normal;
   font-weight: 500;
   line-height: size(39, 1905);
+}
+
+.subtitle{
+  text-align: center;
 }
 
 .applications{
@@ -137,7 +142,7 @@ button{
   .applications{
     padding: size(10, 744) size(40, 744);
     margin-top: size(11, 744);
-    max-height: 67.90909090909091vh;
+    max-height: 65.90909090909091vh;
   }
   .applications-item{
     padding: size(25, 744);

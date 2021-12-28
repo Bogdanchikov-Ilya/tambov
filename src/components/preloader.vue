@@ -108,7 +108,7 @@ h6 {
   height: 100%;
   background-color: black;
   opacity: 60%;
-  z-index: 999;
+  z-index: 99999;
   .text{
     color: white;
     font-weight: 800;

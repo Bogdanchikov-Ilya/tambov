@@ -4,8 +4,8 @@
       <div class="auth">
         <p class="form-title">Авторизация</p>
         <form action="#" class="form" @submit="sendForm">
-          <defaultInput labelText="логин" @auth="storeLogin" />
-          <passwordInput labelText="пароль" @auth="storePassword" />
+          <defaultInput labelText="логин" ref="login" @auth="storeLogin" />
+          <passwordInput labelText="пароль" ref="password" @auth="storePassword" />
           <btnPrimary text="Войти"/>
         </form>
         <btnSecondary text="Зарегистрироваться" to="/registerations"@click="sendForm"/>
@@ -19,6 +19,7 @@ import passwordInput from '@/components/password-input'
 import btnPrimary from '@/components/btn-primary'
 import btnSecondary from '@/components/btn-secondary'
 
+
 import authServices from "@/services/auth-services";
 export default {
 components: {defaultInput, passwordInput, btnPrimary, btnSecondary},
@@ -26,9 +27,9 @@ components: {defaultInput, passwordInput, btnPrimary, btnSecondary},
     return {
       auth: {
         login: '',
-        password: '',
-        authServices: null,
-      }
+        password: ''
+      },
+      authServices: null,
     }
   },
   created() {
@@ -43,10 +44,13 @@ components: {defaultInput, passwordInput, btnPrimary, btnSecondary},
     },
     sendForm(e) {
       e.preventDefault()
-      this.authServices.login({
-        login: this.auth.login,
-        password: this.auth.password,
-      })
+      this.$refs.login.check()
+      this.$refs.password.checkValidPassword()
+      if(this.auth.login && this.auth.password) {
+        this.authServices.login(this.auth)
+        this.auth.login = ''
+        this.auth.password = ''
+      }
     }
   }
 }

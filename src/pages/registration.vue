@@ -4,16 +4,24 @@
       <div class="reg">
         <p class="form-title">Регистрация</p>
         <form action="#" class="form" @submit="sendForm">
-          <defaultInput labelText="ЛОГИН" @auth="storeLogin"/>
-          <passwordInput labelText="повторите пароль" :repeat="true" @auth="storePassword"/>
-<!--          <div class="form-item">-->
-<!--            <label class="popup-item__label" for="phone">телефон <sup>*</sup></label>-->
-<!--            <input type="tel" class="reg-item__input" id="phone" name="phone">-->
-<!--          </div>-->
-          <phoneInput @auth="storePhone"/>
+          <defaultInput labelText="ЛОГИН"
+                        ref="login"
+                        @auth="storeLogin"/>
+          <passwordInput labelText="повторите пароль"
+                         ref="password"
+                         :repeat="true"
+                         @auth="storePassword"/>
+          <phoneInput ref="phone"
+                      @auth="storePhone"/>
           <div class="confirm">
-            <input type="checkbox" class="reg-item__input" id="confirm" name="confirm">
+            <input type="checkbox"
+                   v-model="confirm"
+                   class="reg-item__input"
+                   :class="{'error': submitted && !confirm}"
+                   @change="submitted = true"
+                   id="confirm" name="confirm">
             <label class="popup-item__label" for="confirm">Я согласен на обработку моих данных</label>
+            <p v-if="submitted && !confirm" class="msg-error">Подтвердите согласие</p>
           </div>
           <btnPrimary text="зарегистрироваться" @click="sendForm" />
         </form>
@@ -39,8 +47,10 @@ export default {
         authServices: null,
         login: '',
         password: '',
-        phone: ''
-      }
+        phone: '',
+      },
+      confirm: false,
+      submitted: false
     }
   },
   created() {
@@ -58,11 +68,17 @@ export default {
     },
     sendForm(e) {
       e.preventDefault()
-      this.authServices.register({
-        login: this.reg.login,
-        password: this.reg.password,
-        phone: this.reg.phone
-      })
+      this.submitted = true
+      this.$refs.login.check()
+      this.$refs.password.checkValidPassword()
+      this.$refs.phone.validPhone()
+      if(this.reg.login && this.reg.password && this.reg.phone && this.confirm){
+        this.authServices.register({
+          login: this.reg.login,
+          password: this.reg.password,
+          phone: this.reg.phone
+        })
+      }
     }
   }
 }
@@ -104,6 +120,7 @@ form{
   //checkbox
 
   .confirm{
+    position: relative;
     margin-top: size(35, 1905);
     display: flex;
     align-items:center;
@@ -226,6 +243,18 @@ form{
   }
   .btn-secondary{
     margin-top: size(8, 320);
+  }
+}
+
+// errors
+.msg-error{
+  top: size(30, 1905);
+  @media (max-width: 744px){
+    top: size(30, 744);
+  }
+  @media (max-width: 320px){
+    top: size(22, 320);
+    margin-bottom: size(20, 320);
   }
 }
 </style>
