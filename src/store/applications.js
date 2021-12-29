@@ -12,7 +12,6 @@ export default {
   },
   getters: {
     getApplication(state){
-      console.log(state.application)
       return state.application
     }
   }

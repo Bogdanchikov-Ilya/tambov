@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 import application from './applications'
 import preloader from './preloader'
+import notification from './notification'
 
 export default new Vuex.Store({
   state: {
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   },
   modules: {
     application,
-    preloader
+    preloader,
+    notification
   }
 })

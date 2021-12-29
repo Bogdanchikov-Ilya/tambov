@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <preloader v-if="preloaderStatus"/>
+    <notification />
     <component :is="layout"/>
     <router-view/>
   </div>
@@ -18,8 +19,9 @@
 <script>
 import HeaderApp from "@/layouts/home-layout";
 import preloader from "@/components/preloader";
+import notification from "@/components/notification";
 export default {
-  components: {HeaderApp, preloader},
+  components: {HeaderApp, preloader, notification},
   computed: {
     layout(){
       return this.$route.meta.layout || "home-layout"

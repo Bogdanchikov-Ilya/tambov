@@ -11,7 +11,7 @@ class authServices {
       if(result.data.status === 200 || result.data.status === 200 || result.data.status === true) {
         router.push('/completed-reg')
       } else {
-        alert(result.data.message)
+        store.commit('setErrorText', result.data.message)
       }
     } catch (e) {
       console.log(e)
@@ -29,7 +29,7 @@ class authServices {
         localStorage.setItem('token', result.data.token)
         router.push('/')
       } else {
-        alert(result.data.message)
+        store.commit('setErrorText', result.data.message)
       }
     } catch (e){
       console.log(e)
@@ -47,7 +47,7 @@ class authServices {
         store.commit('setNull')
         router.push('/auth')
       } else {
-        alert(result.data.message)
+        store.commit('setErrorText', result.data.message)
       }
     } catch (e){
       console.log(e)

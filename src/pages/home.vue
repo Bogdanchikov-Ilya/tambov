@@ -3,9 +3,9 @@
     <popup ref="popup"/>
     <div class="container">
       <h1 class="title">Список заявок</h1>
-      <p class="title subtitle" v-if="!applications.status">Ошибка загрузки - {{applications.message}}</p>
-      <ul class="applications" v-if="applications.status">
-        <li class="applications-item" v-for="item in applications.message">
+      <p class="title subtitle" v-if="!applications">Ошибка загрузки</p>
+      <ul class="applications" >
+        <li class="applications-item" v-if="applications" v-for="item in applications">
           <span class="applications-item__title">{{item.name}}</span>
           <p class="applications-item__text">{{item.text_task }}</p>
         </li>
@@ -22,6 +22,7 @@ import appServices from '@/services/app-services'
 export default {
   data () {
     return {
+      test: '',
       appServices: null,
       error: ''
     }
@@ -38,10 +39,13 @@ export default {
   },
   created() {
     let token = localStorage.getItem('token')
-    if(!token) this.$router.push('/auth')
+    if(!token) {
+      this.$router.push('/auth')
+    } else {
+      this.appServices = new appServices()
+      this.appServices.loadApplications({token: token})
+    }
 
-    this.appServices = new appServices()
-    this.appServices.loadApplications({token: token})
   },
   components: {
     popup
