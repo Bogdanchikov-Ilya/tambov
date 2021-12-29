@@ -4,6 +4,6 @@ export var api = axios.create({
   headers: {
     'Content-type': 'application/json',
   },
-  baseURL: 'http://frontapi.3jz.ru/api/',
+  baseURL: 'https://frontapi.3jz.ru/api/',
   responseType: 'json',
 })
