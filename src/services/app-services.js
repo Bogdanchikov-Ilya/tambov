@@ -43,6 +43,7 @@ class appServices {
       console.log(e)
       throw e
     } finally {
+      store.commit('setNull')
       store.commit('setFalse')
     }
   }
