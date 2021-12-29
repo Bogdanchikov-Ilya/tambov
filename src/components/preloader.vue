@@ -107,7 +107,7 @@ h6 {
   width: 100%;
   height: 100%;
   background-color: black;
-  opacity: 60%;
+  opacity: 0.6;
   z-index: 99999;
   .text{
     color: white;
