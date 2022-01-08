@@ -6,7 +6,8 @@
         <path d="M9.46584 8.00012L15.6959 1.76972C16.1014 1.36446 16.1014 0.709208 15.6959 0.303946C15.2907 -0.101315 14.6354 -0.101315 14.2302 0.303946L7.99991 6.53434L1.76983 0.303946C1.36438 -0.101315 0.709335 -0.101315 0.304082 0.303946C-0.101361 0.709208 -0.101361 1.36446 0.304082 1.76972L6.53416 8.00012L0.304082 14.2305C-0.101361 14.6358 -0.101361 15.291 0.304082 15.6963C0.506044 15.8984 0.771594 16 1.03695 16C1.30231 16 1.56767 15.8984 1.76983 15.6963L7.99991 9.46589L14.2302 15.6963C14.4323 15.8984 14.6977 16 14.963 16C15.2284 16 15.4938 15.8984 15.6959 15.6963C16.1014 15.291 16.1014 14.6358 15.6959 14.2305L9.46584 8.00012Z" fill="black"/>
       </svg>
       <p class="form-title">Создать заявку</p>
-      <form action="#" class="popup-form" @submit="createApp">
+      <form action="#" class="popup-form"
+            @submit="createApp">
         <div class="form-item">
           <!--    {{$v.login.required}} {{$v.login.minLength}}-->
           <label class="form-item__label" for="title">заголовок <sup>*</sup></label>
@@ -26,7 +27,8 @@
                     :class="{'error': submittedTextarea && !$v.textarea.required}"></textarea>
           <p v-if="submittedTextarea && !$v.textarea.required" class="msg-error textarea">Заполните это поле</p>
         </div>
-        <btnPrimary text="создать заявку" @click="createApp" />
+        <btnPrimary text="создать заявку"
+                    @click="createApp" />
       </form>
     </div>
   </div>

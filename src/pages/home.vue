@@ -3,11 +3,13 @@
     <popup ref="popup"/>
     <div class="container">
       <h1 class="title">Список заявок</h1>
-      <p class="title subtitle" v-if="!applications">Ошибка загрузки</p>
+      <p class="title subtitle"
+         v-if="!applications">Ошибка загрузки</p>
       <ul class="applications" >
-        <li class="applications-item" v-if="applications" v-for="item in applications">
-          <span class="applications-item__title">{{item.name}}</span>
-          <p class="applications-item__text">{{item.text_task }}</p>
+        <li class="applications-item"
+            v-if="applications" v-for="item in applications">
+          <span class="applications-item__title">{{ item.name }}</span>
+          <p class="applications-item__text">{{ item.text_task }}</p>
         </li>
       </ul>
       <button class="btn btn-primary" @click="openPopup">Создать заявку</button>

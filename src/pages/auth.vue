@@ -3,12 +3,19 @@
     <div class="container">
       <div class="auth">
         <p class="form-title">Авторизация</p>
-        <form action="#" class="form" @submit="sendForm">
-          <defaultInput labelText="логин" ref="login" @auth="storeLogin" />
-          <passwordInput labelText="пароль" ref="password" @auth="storePassword" />
+        <form action="#" class="form"
+              @submit="sendForm">
+          <defaultInput labelText="логин"
+                        ref="login"
+                        @auth="storeLogin" />
+          <passwordInput
+              labelText="пароль"
+              ref="password"
+              @auth="storePassword" />
           <btnPrimary text="Войти"/>
         </form>
-        <btnSecondary text="Зарегистрироваться" to="/registerations"@click="sendForm"/>
+        <btnSecondary text="Зарегистрироваться" to="/registerations"
+                      @click="sendForm"/>
       </div>
     </div>
   </div>
