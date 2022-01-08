@@ -23,7 +23,7 @@ class authServices {
   async login(data) {
     try {
       store.commit('setTrue')
-      const result =  await api.post('/login/', data)
+      const result = await api.post('/login/', data)
       if(result.data.status === 200 || result.data.status === 200 || result.data.status === true) {
         store.commit('setNull')
         localStorage.setItem('token', result.data.token)
@@ -48,6 +48,7 @@ class authServices {
         router.push('/auth')
       } else {
         store.commit('setErrorText', result.data.message)
+        router.push('/auth')
       }
     } catch (e){
       console.log(e)

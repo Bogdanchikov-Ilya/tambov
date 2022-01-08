@@ -40,8 +40,10 @@ export default {
   created() {
     let token = localStorage.getItem('token')
     if(!token) {
+      console.log('no token' + token)
       this.$router.push('/auth')
     } else {
+      console.log(token)
       this.appServices = new appServices()
       this.appServices.loadApplications({token: token})
     }
