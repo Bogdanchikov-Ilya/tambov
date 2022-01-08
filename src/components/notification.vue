@@ -1,6 +1,7 @@
 <template>
   <transition name="slide-fade">
-    <div class="notification" v-if="errorText">
+    <div class="notification"
+         v-if="errorText">
       <div class="notification-wrapper">
         <div class="content">
           <p class="title">Ошибка - {{ errorText }}</p>

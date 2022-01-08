@@ -79,10 +79,8 @@ export default {
           this.$emit('auth', {password: this.passwordValue})
         }else{ this.$emit('auth', {password: ''}) }
       } else {
-        if(this.passwordValue !== this.repeatPasswordValue && this.passwordValue.trim() !== ''){
-          // говорю юзеру что не равны пароли
-        } else {
-          this.$emit('auth', {password: this.passwordValue, repeatPassword: this.repeatPasswordValue})
+        if(this.passwordValue === this.repeatPasswordValue && this.passwordValue.trim() !== ''){
+          this.$emit('auth', {"password": this.passwordValue, "repeatPassword": this.repeatPasswordValue})
         }
       }
     }

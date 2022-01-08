@@ -1,7 +1,7 @@
 <template>
   <div class="form-item">
 <!--    {{$v.login.required}} {{$v.login.minLength}}-->
-    <label class="form-item__label" for="login">{{labelText}} <sup>*</sup></label>
+    <label class="form-item__label" for="login">{{ labelText }} <sup>*</sup></label>
     <input type="text"
            class="reg-item__input"
            v-model="login" @input="check"
