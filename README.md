@@ -15,5 +15,5 @@ npm run serve
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### При запуске возможно не перекинет на страницу загрузки так как возможно у вас сохранен токен или срок действия этого токена истек, просто нажмите logout
+### На ветке small fixes изменил logout и поменял стиль кода в некоторых комопнентах
