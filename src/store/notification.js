@@ -1,18 +1,18 @@
 export default {
   state: {
-    errorText: ''
+    errorText: "",
   },
   mutations: {
-    setErrorText(state, payload){
-      state.errorText = payload
+    setErrorText(state, payload) {
+      state.errorText = payload;
       setTimeout(() => {
-        state.errorText = ''
-      }, 4000)
+        state.errorText = "";
+      }, 4000);
     },
   },
   getters: {
-    getErrorText(state){
-      return state.errorText
-    }
-  }
-}
+    getErrorText(state) {
+      return state.errorText;
+    },
+  },
+};

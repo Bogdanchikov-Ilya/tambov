@@ -15,29 +15,29 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      showPassword: 'password'
-    }
+      showPassword: "password",
+    };
   },
   methods: {
-    password (st) {
-      if(st === 'password') this.showPassword = 'text'
-      else this.showPassword = 'password'
-    }
-  }
-}
+    password(st) {
+      if (st === "password") this.showPassword = "text";
+      else this.showPassword = "password";
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/style";
 
-.auth-wrapper{
+.auth-wrapper {
   width: 100%;
   height: calc(100vh - 4.51444vw);
-  background: #F2F2F2;
+  background: #f2f2f2;
 }
-.auth{
+.auth {
   width: size(534, 1905);
   padding: size(58, 1905) size(64, 1905) size(57, 1905);
   display: flex;
@@ -50,61 +50,59 @@ export default {
   top: 50%;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 
-.completed-text{
+.completed-text {
   font-size: size(15, 1905);
   line-height: size(24, 1905);
   text-align: center;
   margin-top: size(25, 1905);
-  span{
-    display: block
+  span {
+    display: block;
   }
 }
 
-.btn{
+.btn {
   width: size(212, 1905);
   text-align: center;
   margin: size(27, 1905) auto 0;
 }
 
-
-
-@media (max-width: 744px){
-  .auth-wrapper{
+@media (max-width: 744px) {
+  .auth-wrapper {
     height: calc(100vh - 9.67742vw);
   }
-  .auth{
+  .auth {
     width: size(550, 744);
     padding: size(58, 744) size(64, 744) size(50, 744);
     box-shadow: 0px 0px size(30, 744) rgba(0, 0, 0, 0.1);
   }
-  .completed-text{
+  .completed-text {
     font-size: size(15, 744);
     line-height: size(24, 744);
     margin-top: size(25, 744);
   }
-  .btn{
+  .btn {
     width: size(212, 744);
     margin: size(27, 744) auto 0;
   }
 }
-@media (max-width: 320px){
-  .auth-wrapper{
+@media (max-width: 320px) {
+  .auth-wrapper {
     height: calc(100vh - 12.5vw);
   }
-  .auth{
+  .auth {
     width: size(290, 320);
     padding: size(28, 320) size(24, 320) size(20, 320);
     box-shadow: 0px 0px size(30, 744) rgba(0, 0, 0, 0.1);
   }
-  .completed-text{
+  .completed-text {
     font-size: size(15, 320);
     line-height: size(24, 320);
     margin-top: size(25, 320);
   }
-  .btn{
+  .btn {
     width: size(212, 320);
     margin: size(27, 320) auto 0;
   }

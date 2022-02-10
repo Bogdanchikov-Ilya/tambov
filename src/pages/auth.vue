@@ -5,66 +5,73 @@
         <p class="form-title">Авторизация</p>
         <form action="#" class="form" @submit="sendForm">
           <defaultInput labelText="логин" ref="login" @auth="storeLogin" />
-          <passwordInput labelText="пароль" ref="password" @auth="storePassword" />
-          <btnPrimary text="Войти"/>
+          <passwordInput
+            labelText="пароль"
+            ref="password"
+            @auth="storePassword"
+          />
+          <btnPrimary text="Войти" />
         </form>
-        <btnSecondary text="Зарегистрироваться" to="/registerations"@click="sendForm"/>
+        <btnSecondary
+          text="Зарегистрироваться"
+          to="/registerations"
+          @click="sendForm"
+        />
       </div>
     </div>
   </div>
 </template>
 <script>
-import defaultInput from '@/components/default-input'
-import passwordInput from '@/components/password-input'
-import btnPrimary from '@/components/btn-primary'
-import btnSecondary from '@/components/btn-secondary'
-
+import defaultInput from "@/components/default-input";
+import passwordInput from "@/components/password-input";
+import btnPrimary from "@/components/btn-primary";
+import btnSecondary from "@/components/btn-secondary";
 
 import authServices from "@/services/auth-services";
 export default {
-components: {defaultInput, passwordInput, btnPrimary, btnSecondary},
-  data () {
+  components: { defaultInput, passwordInput, btnPrimary, btnSecondary },
+  data() {
     return {
       auth: {
-        login: '',
-        password: ''
+        login: "",
+        password: "",
       },
       authServices: null,
-    }
+    };
   },
   created() {
-    this.authServices = new authServices()
+    this.authServices = new authServices();
   },
   methods: {
     storeLogin(login) {
-      this.auth.login = login
+      this.auth.login = login;
     },
-    storePassword(data){
-      this.auth.password = data.password
+    storePassword(data) {
+      this.auth.password = data.password;
     },
     sendForm(e) {
-      e.preventDefault()
-      this.$refs.login.check()
-      this.$refs.password.checkValidPassword()
-      if(this.auth.login && this.auth.password) {
-        this.authServices.login(this.auth)
-        this.auth.login = ''
-        this.auth.password = ''
+      e.preventDefault();
+      this.$refs.login.check();
+      this.$refs.password.checkValidPassword();
+      if (this.auth.login && this.auth.password) {
+        this.authServices.login(this.auth);
+        this.auth.login = "";
+        this.auth.password = "";
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/style";
 
-.auth-wrapper{
+.auth-wrapper {
   width: 100%;
   height: calc(100vh - 4.51444vw);
-  background: #F2F2F2;
+  background: #f2f2f2;
 }
-.auth{
+.auth {
   width: size(534, 1905);
   padding: size(58, 1905) size(64, 1905) size(44, 1905);
   display: flex;
@@ -77,20 +84,20 @@ components: {defaultInput, passwordInput, btnPrimary, btnSecondary},
   top: 50%;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
-form{
+form {
   margin-top: size(25, 1905);
   .form-item {
     margin-bottom: size(24, 1905);
   }
-  .btn-primary{
+  .btn-primary {
     width: 100%;
     margin-top: size(56, 1905);
   }
-  .input-password__wrapper{
+  .input-password__wrapper {
     position: relative;
-    svg{
+    svg {
       cursor: pointer;
       position: absolute;
       top: 50%;
@@ -98,7 +105,8 @@ form{
       transform: translateY(-50%);
       width: size(20, 1905);
     }
-    input, input[type="text"]{
+    input,
+    input[type="text"] {
       width: 100%;
       // запрещаю выделение пароля
       -o-user-select: none;
@@ -108,63 +116,63 @@ form{
     }
   }
 }
-.btn-secondary{
+.btn-secondary {
   margin-top: size(39, 1905);
 }
 
-@media (max-width: 744px){
-  .auth-wrapper{
+@media (max-width: 744px) {
+  .auth-wrapper {
     height: calc(100vh - 9.67742vw);
   }
-  .auth{
+  .auth {
     width: size(550, 744);
     padding: size(58, 744) size(64, 744) size(50, 744);
     box-shadow: 0px 0px size(30, 744) rgba(0, 0, 0, 0.1);
   }
-  form{
+  form {
     margin-top: size(25, 744);
     .form-item {
       margin-bottom: size(24, 744);
     }
-    .btn-primary{
+    .btn-primary {
       margin-top: size(52, 744);
     }
-    .input-password__wrapper{
-      svg{
+    .input-password__wrapper {
+      svg {
         right: size(15, 744);
         width: size(20, 744);
       }
     }
   }
-  .register{
+  .register {
     margin-top: size(15, 744);
   }
 }
-@media (max-width: 320px){
-  .auth-wrapper{
+@media (max-width: 320px) {
+  .auth-wrapper {
     height: calc(100vh - 12.5vw);
   }
-  .auth{
+  .auth {
     width: size(290, 320);
     padding: size(19, 320) size(24, 320) size(14, 320);
     box-shadow: 0px 0px size(30, 320) rgba(0, 0, 0, 0.1);
   }
-  form{
+  form {
     margin-top: size(11, 320);
     .form-item {
       margin-bottom: size(12, 320);
     }
-    .btn-primary{
+    .btn-primary {
       margin-top: size(8, 320);
     }
-    .input-password__wrapper{
-      svg{
+    .input-password__wrapper {
+      svg {
         right: size(11, 320);
         width: size(20, 320);
       }
     }
   }
-  .register{
+  .register {
     margin-top: size(8, 320);
   }
 }

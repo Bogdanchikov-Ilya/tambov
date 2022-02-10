@@ -1,22 +1,19 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-import application from './applications'
-import preloader from './preloader'
-import notification from './notification'
+import application from "./applications";
+import preloader from "./preloader";
+import notification from "./notification";
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  state: {},
+  mutations: {},
+  actions: {},
   modules: {
     application,
     preloader,
-    notification
-  }
-})
+    notification,
+  },
+});

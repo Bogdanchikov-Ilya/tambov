@@ -1,18 +1,18 @@
 export default {
   state: {
-    loader: false
+    loader: false,
   },
   mutations: {
-    setFalse(state){
-      state.loader = false
+    setFalse(state) {
+      state.loader = false;
     },
-    setTrue(state){
-      state.loader = true
+    setTrue(state) {
+      state.loader = true;
     },
   },
   getters: {
-    getPreloaderStatus(state){
-      return state.loader
-    }
-  }
-}
+    getPreloaderStatus(state) {
+      return state.loader;
+    },
+  },
+};

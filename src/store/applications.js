@@ -1,18 +1,18 @@
 export default {
   state: {
-    application: null
+    application: null,
   },
   mutations: {
-    setApplication(state, data){
-      state.application = data
+    setApplication(state, data) {
+      state.application = data;
     },
     setNull(state) {
-      state.application = null
-    }
+      state.application = null;
+    },
   },
   getters: {
-    getApplication(state){
-      return state.application
-    }
-  }
-}
+    getApplication(state) {
+      return state.application;
+    },
+  },
+};

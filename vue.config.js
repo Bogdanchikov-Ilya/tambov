@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/tambov/'
-}
+  publicPath: "/tambov/",
+};

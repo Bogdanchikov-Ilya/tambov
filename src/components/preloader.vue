@@ -6,9 +6,7 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style lang="scss" scoped>
@@ -87,17 +85,15 @@ h6 {
   font-size: inherit;
 }
 
-@function size($px, $width){
+@function size($px, $width) {
   $result: ($px / $width) * 100vw;
   @return $result;
 }
 
-
-
 //preloader
 
-.page-loader{
-  display:  flex;
+.page-loader {
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -109,7 +105,7 @@ h6 {
   background-color: black;
   opacity: 0.6;
   z-index: 99999;
-  .text{
+  .text {
     color: white;
     font-weight: 800;
     font-size: size(45, 1920);

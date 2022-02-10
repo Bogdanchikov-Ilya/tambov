@@ -8,24 +8,21 @@
       </header>
     </div>
   </div>
-
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/style";
 
-.header-wrapper{
+.header-wrapper {
   display: flex;
   align-items: center;
   height: size(86, 1905);
 }
-header{
+header {
   width: 100%;
   height: 100%;
   display: flex;
@@ -33,15 +30,15 @@ header{
   justify-content: space-between;
 }
 
-nav{
+nav {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.logo{
-  font-family: 'CeraPro-Bold', sans-serif;
+.logo {
+  font-family: "CeraPro-Bold", sans-serif;
   font-weight: bold;
   font-size: size(24, 1905);
   line-height: size(30, 1905);
@@ -49,20 +46,20 @@ nav{
   outline: none;
 }
 
-@media (max-width: 744px){
-  .header-wrapper{
+@media (max-width: 744px) {
+  .header-wrapper {
     height: size(72, 744);
   }
-  .logo{
+  .logo {
     font-size: size(24, 744);
     line-height: size(30, 744);
   }
 }
-@media (max-width: 320px){
-  .header-wrapper{
+@media (max-width: 320px) {
+  .header-wrapper {
     height: size(40, 320);
   }
-  .logo{
+  .logo {
     font-size: size(18, 320);
     line-height: size(23, 320);
   }

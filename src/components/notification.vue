@@ -12,43 +12,43 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       show: true,
-    }
+    };
   },
   computed: {
-    errorText () {
-      return this.$store.getters.getErrorText
-    }
-  }
-}
+    errorText() {
+      return this.$store.getters.getErrorText;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/style";
-.notification{
+.notification {
   text-align: center;
   position: fixed;
-  background-color: #EE5173;
+  background-color: #ee5173;
   right: size(200, 1905);
   left: size(200, 1905);
   bottom: size(100, 1905);
   z-index: 999;
   padding: 1vw;
   border-radius: 5px;
-  .content{
-    .title{
+  .content {
+    .title {
       color: white;
     }
   }
 }
 
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 .slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active до версии 2.1.8 */ {
