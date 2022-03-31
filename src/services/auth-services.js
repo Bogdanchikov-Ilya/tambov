@@ -8,6 +8,7 @@ class authServices {
     try {
       store.commit("setTrue");
       const result = await api.post("/registration/", data);
+      console.log(result)
       if (
         result.data.status === 200 ||
         result.data.status === 200 ||
@@ -28,6 +29,7 @@ class authServices {
     try {
       store.commit("setTrue");
       const result = await api.post("/login/", data);
+      console.log(result)
       if (
         result.data.status === 200 ||
         result.data.status === 200 ||
