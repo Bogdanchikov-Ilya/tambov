@@ -1,4 +1,4 @@
-import { api } from "../api/api";
+import {api} from "../api/api";
 
 import store from "../store";
 import router from "../router";
@@ -14,7 +14,7 @@ class authServices {
         result.data.status === 200 ||
         result.data.status === true
       ) {
-        router.push("/completed-reg");
+        router.push({name: "Completed-reg"});
       } else {
         store.commit("setErrorText", result.data.message);
       }
@@ -25,6 +25,7 @@ class authServices {
       store.commit("setFalse");
     }
   }
+
   async login(data) {
     try {
       store.commit("setTrue");
@@ -37,7 +38,7 @@ class authServices {
       ) {
         store.commit("setNull");
         localStorage.setItem("token", result.data.token);
-        router.push("/");
+        router.push({name: "Home"});
       } else {
         store.commit("setErrorText", result.data.message);
       }
@@ -48,6 +49,7 @@ class authServices {
       store.commit("setFalse");
     }
   }
+
   async logout(token) {
     try {
       store.commit("setTrue");
@@ -59,7 +61,7 @@ class authServices {
       ) {
         localStorage.clear();
         store.commit("setNull");
-        router.push("/auth");
+        router.push({name: "Auth"});
       } else {
         store.commit("setErrorText", result.data.message);
       }

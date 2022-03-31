@@ -1,5 +1,5 @@
 # testovoe zadanie
-### P.S Апишка уже не работает
+### P.S На АПИшке закончилась подписка и она уже не работает
 ## Project setup
 ```
 npm install
